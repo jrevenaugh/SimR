@@ -2,7 +2,16 @@
 #
 require(tidyverse)
 
-# Geometry and hashes ----------------------------------------------------------
+# Graphics ---------------------------------------------------------------------
+pColors <- c("gray70", "dodgerblue", "orangered")
+lineScale <- c(1, 1.5, 1.5)
+
+# Mnemonics --------------------------------------------------------------------
+gray = pColors[1]
+blue = pColors[2]
+red = pColors[3]
+
+# Geometry ---------------------------------------------------------------------
 phi <- seq(pi, -pi, length.out = 7)
 radius <- 1
 Ematrix <- matrix(0, nrow = 30, ncol = 2)
@@ -26,7 +35,8 @@ vMat <- as.matrix(vertices)
 vertices$names <- toupper(letters[1:6])
 vertices$player <- "gray"
 
-# Hash for edges lookup (row,column = vertices, 1 = A)
+# Hash Tables ---------------------------------------------------------------------
+# Vertices to edge
 v2e <- matrix(0, nrow = 6, ncol = 6)
 k <- 1
 for (i in 1:5) {
@@ -37,14 +47,14 @@ for (i in 1:5) {
   }
 }
 
-# Hash for edges to vertices
+# Edge to vertices
 e2v <- matrix(0, nrow = 15, ncol = 2)
 for (i in 1:15) {
   vList <- unique(as.numeric(which( v2e == i, arr.ind = TRUE)))
   e2v[i,] <- vList
 }
 
-# Hash from vertices to triangle
+# Vertices to triangle
 v2t <- array(0, dim = c(6, 6, 6))
 l <- 1
 for (i in 1:4) {
@@ -61,7 +71,7 @@ for (i in 1:4) {
   }
 }
 
-# Hash from edges to triangles
+# Edges to triangle
 e2t <- array(0, dim = c(20, 20, 20))
 l <- 1
 for (i in 1:4) {
@@ -83,7 +93,7 @@ for (i in 1:4) {
 
 # Data frame and matrix for triangles.
 # Former has vertex and edge indices and player variables
-# Latter is just a hash from triangle to vertices and edges
+# Latter is a hash from triangle to vertices and edges
 triMat <- matrix(0, nrow = 20, ncol = 6)
 for (i in 1:20) {
   vList <- unique(sort(which(v2t == i, arr.ind = TRUE)))
@@ -95,13 +105,6 @@ for (i in 1:20) {
 triangles <- as.data.frame(triMat)
 colnames(triangles) <- c("V1", "V2", "V3", "E1", "E2", "E3")
 triangles$player <- rep("gray", 20)
-
-
-# Graphics ---------------------------------------------------------------------
-pColors <- c("gray70", "dodgerblue", "orangered")
-pBreaks <- c("gray70", "dodgerblue", "orangered")
-lineScale <- c(1, 1.5, 1.5)
-
 
 # Misc -------------------------------------------------------------------------
 pickTolerance <- 0.15
