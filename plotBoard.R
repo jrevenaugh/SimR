@@ -15,7 +15,7 @@ drawBoard <- function(edges, mono) {
                           aes(x, y),
                           fill = mono$player,
                           color = "black",
-                          alpha = 0.4)
+                          alpha = 0.3)
   }
 
   # Color in edges and vertices

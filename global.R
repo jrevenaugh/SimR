@@ -4,7 +4,7 @@ require(tidyverse)
 
 # Graphics ---------------------------------------------------------------------
 pColors <- c("gray70", "dodgerblue", "orangered")
-lineScale <- c(1, 1.5, 1.5)
+lineScale <- c(0.75, 1.5, 1.5)
 
 # Mnemonics --------------------------------------------------------------------
 gray = pColors[1]
