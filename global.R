@@ -50,7 +50,7 @@ for (i in 1:5) {
 # Edge to vertices
 e2v <- matrix(0, nrow = 15, ncol = 2)
 for (i in 1:15) {
-  vList <- unique(as.numeric(which( v2e == i, arr.ind = TRUE)))
+  vList <- unique(as.numeric(which(v2e == i, arr.ind = TRUE)))
   e2v[i,] <- vList
 }
 

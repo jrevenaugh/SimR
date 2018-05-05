@@ -25,7 +25,7 @@ drawBoard <- function(edges, mono) {
 
            geom_point(data = vertices,
                       aes(x, y, fill = player),
-                      size = 8,
+                      size = 12,
                       pch = 21,
                       color = "black") +
 
