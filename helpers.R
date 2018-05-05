@@ -5,6 +5,7 @@ ePlayer <- function(edges, edgesDF) {
   return(edgesDF)
 }
 
+# Replacement function version (preferred)
 `ePlayer<-` <- function(x, value) {
   i <- rep(1:15, each = 2)
   x$player <- factor(value[i], levels = c(0, -1, 1), labels = pBreaks)
@@ -29,6 +30,7 @@ vPlayer <- function(edges, vertices) {
   return(vertices)
 }
 
+# Replacement function version (preferred)
 `vPlayer<-` <- function(x, value) {
   vSum <- rep(0, 6)
   x$player <- pColors[1]
@@ -45,11 +47,11 @@ vPlayer <- function(edges, vertices) {
   return(x)
 }
 
-# Distance from point a to line connecting b and c
+# Distance from point a to line connecting b and c.  Not limited to line segment.
 dist2Line <- function(a, b, c) {
   v1 <- b - c
   v2 <- a - b
   m <- cbind(v1, v2)
-  d <- abs(det(m)) / sqrt(sum(v1 * v1))
+  d <- abs(det(m)) / sqrt(t(v1) %*% v1)
   return(d)
 }
