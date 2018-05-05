@@ -98,7 +98,6 @@ triangles$player <- rep("gray", 20)
 
 
 # Graphics ---------------------------------------------------------------------
-
 pColors <- c("gray70", "dodgerblue", "orangered")
 pBreaks <- c("gray70", "dodgerblue", "orangered")
 lineScale <- c(1, 1.5, 1.5)
