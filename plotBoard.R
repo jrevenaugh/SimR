@@ -1,11 +1,14 @@
 require(tidyverse)
 source("global.R")
 
+source("helpers.R")
 
 drawBoard <- function(edges) {
   ePlayer(edgesDF) <- edges
   vPlayer(vertices) <- edges
+
   g <- ggplot() +
+    coord_equal() +
 
     # Color in edges
     geom_line(data = edgesDF,

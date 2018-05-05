@@ -22,6 +22,7 @@ edgesDF$player <- "gray"
 edgesDF$seq <- rep( seq(1, 15), each = 2)
 
 vertices <- radius * data.frame(x = cos(phi), y = sin(phi)) %>% slice(1:6)
+vMat <- as.matrix(vertices)
 vertices$names <- toupper(letters[1:6])
 vertices$player <- "gray"
 
@@ -96,9 +97,12 @@ colnames(triangles) <- c("V1", "V2", "V3", "E1", "E2", "E3")
 triangles$player <- rep("gray", 20)
 
 
-
 # Graphics ---------------------------------------------------------------------
 pColors <- c("gray70", "dodgerblue", "orangered")
 pBreaks <- c("gray70", "dodgerblue", "orangered")
 lineScale <- c(1, 1.5, 1.5)
+
+
+# Misc -------------------------------------------------------------------------
+pickTolerance <- 0.15
 
