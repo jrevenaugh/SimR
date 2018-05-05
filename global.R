@@ -50,6 +50,25 @@ for (i in 1:4) {
   }
 }
 
+# Hash from edges to triangles
+e2t <- array(0, dim = c(20, 20, 20))
+l <- 1
+for (i in 1:4) {
+  for (j in (i + 1):5) {
+    for (k in (j + 1):6) {
+      p <- v2e[i,j]
+      q <- v2e[j,k]
+      r <- v2e[i,k]
+      e2t[p,q,r] <- l
+      e2t[q,p,r] <- l
+      e2t[p,r,q] <- l
+      e2t[r,p,q] <- l
+      e2t[q,r,p] <- l
+      e2t[r,q,p] <- l
+      l <- l + 1
+    }
+  }
+}
 
 # Graphics ---------------------------------------------------------------------
 
