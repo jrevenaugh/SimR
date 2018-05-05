@@ -2,11 +2,13 @@ require(tidyverse)
 source("global.R")
 
 
-drawBoard <- function(edges, vertices) {
+drawBoard <- function(edges) {
+  ePlayer(edgesDF) <- edges
+  vPlayer(vertices) <- edges
   g <- ggplot() +
 
     # Color in edges
-    geom_line(data = edges,
+    geom_line(data = edgesDF,
               aes(x, y, group = seq, color = player, size = player)) +
 
     # Color

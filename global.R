@@ -14,13 +14,16 @@ for (i in 1:5) {
     k <- k + 2
   }
 }
-edges <- as.data.frame(Ematrix)
-colnames(edges) <- c("x", "y")
-edges$player <- "gray"
-edges$seq <- rep( seq(1, 15), each = 2)
+
+# edgeDF for plotting purposes
+edgesDF <- as.data.frame(Ematrix)
+colnames(edgesDF) <- c("x", "y")
+edgesDF$player <- "gray"
+edgesDF$seq <- rep( seq(1, 15), each = 2)
 
 vertices <- radius * data.frame(x = cos(phi), y = sin(phi)) %>% slice(1:6)
 vertices$names <- toupper(letters[1:6])
+vertices$player <- "gray"
 
 # Hash for edges lookup (row,column = vertices, 1 = A)
 v2e <- matrix(0, nrow = 6, ncol = 6)
@@ -31,6 +34,13 @@ for (i in 1:5) {
     v2e[j,i] <- k
     k <- k + 1
   }
+}
+
+# Hash for edges to vertices
+e2v <- matrix(0, nrow = 15, ncol = 2)
+for (i in 1:15) {
+  vList <- unique(as.numeric(which( v2e == i, arr.ind = TRUE)))
+  e2v[i,] <- vList
 }
 
 # Hash from vertices to triangle
@@ -75,8 +85,8 @@ for (i in 1:4) {
 # Latter is just a hash from triangle to vertices and edges
 triMat <- matrix(0, nrow = 20, ncol = 6)
 for (i in 1:20) {
-  vList <- sort(which(v2t == i, arr.ind = TRUE))
-  eList <- sort(which(e2t == i, arr.ind = TRUE))
+  vList <- unique(sort(which(v2t == i, arr.ind = TRUE)))
+  eList <- unique(sort(which(e2t == i, arr.ind = TRUE)))
   triMat[i,1:3] <- vList
   triMat[i,4:6] <- eList
 }
@@ -85,9 +95,11 @@ triangles <- as.data.frame(triMat)
 colnames(triangles) <- c("V1", "V2", "V3", "E1", "E2", "E3")
 triangles$player <- rep("gray", 20)
 
+
+
 # Graphics ---------------------------------------------------------------------
 
 pColors <- c("gray70", "dodgerblue", "orangered")
-pBreaks <- c("gray", "blue", "red")
-lineScale <- c(1, 2, 2)
+pBreaks <- c("gray70", "dodgerblue", "orangered")
+lineScale <- c(1, 1.5, 1.5)
 
