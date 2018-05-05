@@ -2,7 +2,7 @@
 #
 require(tidyverse)
 
-# Geometry
+# Geometry and hashes ----------------------------------------------------------
 phi <- seq(pi, -pi, length.out = 7)
 radius <- 1
 Ematrix <- matrix(0, nrow = 30, ncol = 2)
@@ -69,6 +69,21 @@ for (i in 1:4) {
     }
   }
 }
+
+# Data frame and matrix for triangles.
+# Former has vertex and edge indices and player variables
+# Latter is just a hash from triangle to vertices and edges
+triMat <- matrix(0, nrow = 20, ncol = 6)
+for (i in 1:20) {
+  vList <- sort(which(v2t == i, arr.ind = TRUE))
+  eList <- sort(which(e2t == i, arr.ind = TRUE))
+  triMat[i,1:3] <- vList
+  triMat[i,4:6] <- eList
+}
+
+triangles <- as.data.frame(triMat)
+colnames(triangles) <- c("V1", "V2", "V3", "E1", "E2", "E3")
+triangles$player <- rep("gray", 20)
 
 # Graphics ---------------------------------------------------------------------
 
