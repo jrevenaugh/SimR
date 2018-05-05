@@ -6,16 +6,24 @@ source("helpers.R")
 drawBoard <- function(edges) {
   ePlayer(edgesDF) <- edges
   vPlayer(vertices) <- edges
+  mono <- findMono(edges)
 
   g <- ggplot() +
     coord_equal() +
 
     # Color in edges
     geom_line(data = edgesDF,
-              aes(x, y, group = seq, color = player, size = player)) +
+              aes(x, y, group = seq, color = player, size = player))
+
+  # Show losing triangle (if one exists)
+  if (mono$loser != 0) {
+    g <- g + geom_polygon(data = mono$bold,
+                          aes(x, y, fill = player),
+                          color = "black")
+    }
 
     # Color
-    geom_point(data = vertices,
+  g <- g + geom_point(data = vertices,
                aes(x, y, fill = player),
                size = 8,
                pch = 21,

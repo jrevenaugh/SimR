@@ -55,3 +55,30 @@ dist2Line <- function(a, b, c) {
   d <- abs(det(m)) / sqrt(t(v1) %*% v1)
   return(d)
 }
+
+# Check for monochrome triangle(s) (would always be same color).  If found,
+# return vertices and player.  Include data frame to "bold" the triangle on the
+# gameboard.
+findMono <- function(edges) {
+  loser = 0
+  for (i in 1:20) {
+    eList <- triMat[i,4:6]
+    if (all(edges[eList] == 1)) {
+      loser <- 3
+      iTri <- i
+      break
+    } else if (all(edges[eList] == -1)) {
+      loser <- 2
+      iTri <- i
+      break
+    }
+  }
+  if (loser > 0) {
+    bold <- data.frame(x = vertices$x[triMat[iTri,c(1:3,1)]],
+                       y = vertices$y[triMat[iTri,c(1:3,1)]],
+                       player = factor(rep(pColors[loser], 4), levels = pBreaks))
+    return(list(loser = loser, bold = bold))
+  } else{
+    return(list(loser = 0, bold = NA))
+  }
+}
