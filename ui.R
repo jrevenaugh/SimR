@@ -20,7 +20,7 @@ ui <- bootstrapPage(
                 "The first player forced to complete a triangle in their",
                 "own color loses the game. The game cannot end in a draw.",
                 br(), br(),
-                "Game originated by Gustavus Simmons in 1969.",
+                "Game created by Gustavus Simmons in 1969.",
                 hr(),
                 actionButton(inputId = "reset",
                              label = "New Game"),

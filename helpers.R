@@ -7,7 +7,9 @@
 }
 
 # Take edges vector, map to vertices and assign colors
-# This assumes that edges = -1 for "blue", 1 for "red", and 0 for "gray."
+# This assumes that edges = 1 for "blue", 2 for "gray" and 3 for "red."
+# Because five edges meet at a vertex, all gray or an even blue/red mix
+# tallies 10.  Less than 10 implies more blue than red (and vice versa).
 `vPlayer<-` <- function(x, value) {
   x$player <- gray
   vSum <- rep(0, 6)
@@ -35,11 +37,12 @@ dist2Line <- function(x, a, vMat) {
 }
 
 
-# Check for monochrome triangle(s) (would always be same color).  If found,
-# return vertices and player.  Include data frame to "bold" the triangle on the
-# gameboard.
+# Check for monochrome triangle.
+# If found, return vertices and player.
+# Include data frame to "highlight" the triangle on the gameboard.
 findMono <- function(edges) {
-  loser = gray
+  loser <- gray
+  bold <- NA
   for (i in 1:20) {
     eList <- triMat[i,4:6]
     if (all(edges[eList] == red)) {
@@ -57,8 +60,6 @@ findMono <- function(edges) {
                        y = vertices$y[triMat[iTri,c(1:3,1)]],
                        player = loser,
                        stringsAsFactors = FALSE)
-    return(list(player = loser, bold = bold))
-  } else{
-    return(list(player = gray, bold = NA))
   }
+  return(list(player = loser, bold = bold))
 }

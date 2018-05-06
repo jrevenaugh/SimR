@@ -1,5 +1,5 @@
 require(tidyverse)
-source("global.R")
+#source("global.R")
 source("helpers.R")
 
 drawBoard <- function(edges, mono) {
