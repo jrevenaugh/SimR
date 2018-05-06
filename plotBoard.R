@@ -1,5 +1,4 @@
 require(tidyverse)
-#source("global.R")
 source("helpers.R")
 
 drawBoard <- function(edges, mono) {
@@ -35,9 +34,9 @@ drawBoard <- function(edges, mono) {
               size = 8) +
 
     # Set player key scales
-    scale_fill_manual(breaks = pColors, values = pColors) +
-    scale_color_manual(breaks = pColors, values = pColors) +
-    scale_size_manual(breaks = pColors, values = lineScale) +
+    scale_fill_manual(breaks = pColors, values = pColors, drop = FALSE) +
+    scale_color_manual(breaks = pColors, values = pColors, drop = FALSE) +
+    scale_size_manual(breaks = pColors, values = lineScale, drop = FALSE) +
 
     # Remove theme elements
     theme_void() +

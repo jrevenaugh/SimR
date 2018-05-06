@@ -23,7 +23,7 @@
     if (vSum[i] > 10) x$player[i] <- red
     else if (vSum[i] < 10) x$player[i] <- blue
   }
-  x$player <- factor(x$player, levels = pColors )
+  x$player <- factor(x$player, levels = pColors)
   return(x)
 }
 
@@ -58,8 +58,7 @@ findMono <- function(edges) {
   if (loser != gray) {
     bold <- data.frame(x = vertices$x[triMat[iTri,c(1:3,1)]],
                        y = vertices$y[triMat[iTri,c(1:3,1)]],
-                       player = loser,
-                       stringsAsFactors = FALSE)
+                       player = rep(loser, 4))
   }
   return(list(player = loser, bold = bold))
 }
